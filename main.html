@@ -1,0 +1,92 @@
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madeiros Optimización de Trabajo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .header {
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        .module-link {
+            margin: 15px 0;
+        }
+        .user-info {
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Madeiros Optimización de Trabajo</h1>
+        <div class="user-info">
+            <strong>Usuario:</strong> <?php echo isset($_SESSION['user']) ? $_SESSION['user'] : 'Invitado'; ?>
+            <?php if (isset($_SESSION['user'])): ?>
+                <a href="logout.php" class="btn btn-danger btn-sm float-right">Cerrar Sesión</a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="container">
+        <?php if (isset($_SESSION['role']) && $_SESSION['role'] == 'jefe'): ?>
+            <div class="module-link text-center">
+                <a href="corte.php" class="btn btn-success btn-lg">Módulo de Corte</a>
+            </div>
+            <div class="module-link text-center">
+                <a href="revision.php" class="btn btn-info btn-lg">Módulo de Revisión</a>
+            </div>
+            <div class="module-link text-center">
+                <a href="diseno.php" class="btn btn-warning btn-lg">Módulo de Diseño</a>
+            </div>
+            <div class="module-link text-center">
+                <a href="enchape.php" class="btn btn-danger btn-lg">Módulo de Enchape</a>
+            </div>
+            <div class="module-link text-center">
+                <a href="entrega.php" class="btn btn-primary btn-lg">Módulo de Entrega</a>
+            </div>
+
+            <div class="module-link text-center">
+                <a href="estado_general.php" class="btn btn-primary btn-lg">estado general</a>
+            </div>
+        <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] == 'diseñador'): ?>
+            <div class="module-link text-center">
+                <a href="diseno.php" class="btn btn-warning btn-lg">Módulo de Diseño</a>
+            </div>
+        <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] == 'cortador'): ?>
+            <div class="module-link text-center">
+                <a href="corte.php" class="btn btn-success btn-lg">Módulo de Corte</a>
+            </div>
+        <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] == 'enchapador'): ?>
+            <div class="module-link text-center">
+                <a href="enchape.php" class="btn btn-danger btn-lg">Módulo de Enchape</a>
+            </div>
+        <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] == 'modulador'): ?>
+            <div class="module-link text-center">
+                <a href="modulo.php" class="btn btn-info btn-lg">Módulo de Modulación</a>
+            </div>
+        <?php else: ?>
+            <div class="module-link text-center">
+                <p class="text-muted">No tienes acceso a ningún módulo.</p>
+            </div>
+        <?php endif; ?>
+    </div>
+</body>
+</html>
